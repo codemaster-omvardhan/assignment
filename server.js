@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoutes from './routes/auth.js';
 import connectDb from "./config/dbConnection.js";
+import agentRoutes from './routes/agent.js';
+import uploadRoutes from './routes/upload.js';
+import cors from 'cors';
 
 dotenv.config();
 connectDb();
@@ -15,9 +18,12 @@ app.get("/", (req,res) => {
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routing 
 app.use('/api/users', authRoutes);
+app.use('/api/agents', agentRoutes);
+app.use('/api/uploads', uploadRoutes);
 
 
 app.listen(PORT, () => {
